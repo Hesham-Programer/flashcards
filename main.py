@@ -1,6 +1,6 @@
 import streamlit as st
 import base64
-  
+
 if 'cards' not in st.session_state:
     st.session_state.cards = []
 if 'current_index' not in st.session_state:
@@ -9,7 +9,7 @@ if 'show_answer' not in st.session_state:
     st.session_state.show_answer = False
 
 def add_card(image, definition):
-    """Add a new flashcard with image and definition"""
+    """إضافة بطاقة تعليمية جديدة مع صورة وتعريف"""
     if image and definition.strip() != '':
         image_bytes = image.getvalue()
         st.session_state.cards.append({
@@ -27,24 +27,18 @@ with st.form("add_card_form"):
     image = st.file_uploader("اضف صورة", type=["png", "jpg", "jpeg"])
     definition = st.text_input("تعريف")
     submitted = st.form_submit_button("اضف بطاقة")
- 
+
 if submitted:
     if image and definition.strip() != '':
         add_card(image, definition)
     else:
-        st.error("Please provide both an image and a definition")
+        st.error("يرجى تقديم صورة وتعريف")
 
 if len(st.session_state.cards) == 0:
     st.info("لا توجد بطاقات تعليمية بعد. قم بتحميل صورتك الأولى أعلاه!")
 else:
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        st.button("⬅️ Previous", on_click=lambda: st.session_state.update(current_index=max(0, st.session_state.current_index-1), show_answer=False))
-    with col2:
-        st.button("➡️ Next", on_click=lambda: st.session_state.update(current_index=min(len(st.session_state.cards)-1, st.session_state.current_index+1), show_answer=False))
-
     current_card = st.session_state.cards[st.session_state.current_index]
-    
+
     st.markdown(
         f"""
         <div style="
@@ -66,7 +60,13 @@ else:
         unsafe_allow_html=True
     )
 
-    flip_button_text = "Show Definition" if not st.session_state.show_answer else "Show Image"
-    st.button(f"🔁 {flip_button_text}", on_click=lambda: st.session_state.update(show_answer=not st.session_state.show_answer))
+    flip_button_text = "عرض التعريف" if not st.session_state.show_answer else "عرض الصورة"
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col1:
+        st.button("⬅️ السابق", on_click=lambda: st.session_state.update(current_index=max(0, st.session_state.current_index-1), show_answer=False))
+    with col2:
+        st.button(f"🔁 {flip_button_text}", on_click=lambda: st.session_state.update(show_answer=not st.session_state.show_answer))
+    with col3:
+        st.button("➡️ التالي", on_click=lambda: st.session_state.update(current_index=min(len(st.session_state.cards)-1, st.session_state.current_index+1), show_answer=False))
 
-    st.caption(f"Card {st.session_state.current_index + 1} of {len(st.session_state.cards)}")
+    st.caption(f"البطاقة {st.session_state.current_index + 1} من {len(st.session_state.cards)}")
