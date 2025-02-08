@@ -27,7 +27,7 @@ with st.form("add_card_form"):
     image = st.file_uploader("اضف صورة", type=["png", "jpg", "jpeg"])
     definition = st.text_input("تعريف")
     submitted = st.form_submit_button("اضف بطاقة")
-
+ 
 if submitted:
     if image and definition.strip() != '':
         add_card(image, definition)
