@@ -21,7 +21,7 @@ def add_card(image, definition):
         st.session_state.show_answer = False
 
 st.title("📷 Image Flashcards App")
-st.markdown("Upload images and learn their definitions!")
+st.markdown("قم بتحميل الصور وتعلم تعريفاتها!")
 
 with st.form("add_card_form"):
     image = st.file_uploader("اضف صورة", type=["png", "jpg", "jpeg"])
