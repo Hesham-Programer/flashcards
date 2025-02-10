@@ -9,7 +9,7 @@ if 'show_answer' not in st.session_state:
     st.session_state.show_answer = False
 
 def add_card(image, definition):
-    """إضافة بطاقة تعليمية جديدة مع صورة وتعريف"""
+    """إضافة بطاقة تعل    يمية جديدة مع صورة وتعريف"""
     if image and definition.strip() != '':
         image_bytes = image.getvalue()
         st.session_state.cards.append({
