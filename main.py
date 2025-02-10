@@ -20,7 +20,7 @@ def add_card(image, definition):
         st.session_state.current_index = len(st.session_state.cards) - 1
         st.session_state.show_answer = False
 
-st.title("📷 تطبيق بطاقات الصور التعليمية")
+st.title("📷 تطبيق بطاقات الصور             التعليمية")
 st.markdown("قم بتحميل الصور وتعلم تعريفاتها!")
 
 with st.form("add_card_form"):
